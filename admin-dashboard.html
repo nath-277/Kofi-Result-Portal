@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Result Portal</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --background: #f3f4f6;
+            --foreground: #333333;
+            --card-background: #ffffff;
+            --border: #e5e7eb;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            color: var(--foreground);
+            background-color: var(--background);
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        /* Header styles */
+        .header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--background);
+        }
+
+        /* Main content styles */
+        .main-content {
+            padding: 2rem 0;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        .dashboard-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: 1fr;
+        }
+        @media (min-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .card {
+            background-color: var(--card-background);
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+        }
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--border);
+            border-radius: 0.25rem;
+            font-size: 1rem;
+            background-color: var(--card-background);
+        }
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.25rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+        .btn-small {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            background-color: var(--background);
+            font-weight: bold;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <a href="#" class="logo">Result Portal</a>
+            <div class="user-info">
+                <div class="avatar"></div>
+                <span id="user-name">Admin</span>
+                <button id="logout-btn" class="btn btn-small">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <h1>Admin Dashboard</h1>
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h2 class="card-title">Recent Users</h2>
+                    <table id="users-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- User data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card">
+                    <h2 class="card-title">Add Result</h2>
+                    <form id="add-result-form">
+                        <div class="form-group">
+                            <label for="studentEmail" class="form-label">Student Email</label>
+                            <input type="email" id="studentEmail" name="studentEmail" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="course" class="form-label">Course</label>
+                            <input type="text" id="course" name="course" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="level" class="form-label">Level</label>
+                            <select id="level" name="level" class="form-select" required>
+                                <option value="">Select Level</option>
+                                <option value="100L">100L</option>
+                                <option value="200L">200L</option>
+                                <option value="300L">300L</option>
+                                <option value="400L">400L</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="semester" class="form-label">Semester</label>
+                            <select id="semester" name="semester" class="form-select" required>
+                                <option value="">Select Semester</option>
+                                <option value="First">First Semester</option>
+                                <option value="Second">Second Semester</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="score" class="form-label">Score</label>
+                            <input type="number" id="score" name="score" min="0" max="100" class="form-input" required>
+                            <label for="grade" class="form-label">Grade</label>
+                            <input type="string" id="grade" name="grade" class="form-input" required>
+                        </div>
+                        <button type="submit" class="btn">Add Result</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <script>
+        // Populate users table
+        function populateUsersTable() {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const tableBody = document.querySelector('#users-table tbody');
+            tableBody.innerHTML = '';
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.fullname}</td>
+                    <td>${user.email}</td>
+                    <td>${user.isAdmin ? 'Admin' : 'Student'}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Add result form submission
+        document.getElementById('add-result-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const newResult = {
+                id: Date.now(),
+                studentEmail: formData.get('studentEmail'),
+                course: formData.get('course'),
+                level: formData.get('level'),
+                semester: formData.get('semester'),
+                score: parseInt(formData.get('score'), 10),
+                grade: formData.get('grade')
+            };
+
+            const results = JSON.parse(localStorage.getItem('results') || '[]');
+            results.push(newResult);
+            localStorage.setItem('results', JSON.stringify(results));
+
+            alert('Result added successfully!');
+            this.reset();
+        });
+
+        // Logout functionality
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        });
+
+        // Display user name
+        function displayUserName() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser) {
+                document.getElementById('user-name').textContent = currentUser.fullname;
+            }
+        }
+
+        // Initialize the dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            displayUserName();
+            populateUsersTable();
+        });
+    </script>
+</body>
+</html>
